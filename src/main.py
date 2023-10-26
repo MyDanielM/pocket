@@ -10,7 +10,7 @@ import datetime
 from os import system
 
 class Transaction():
-    #Класс транзакция
+    # Класс транзакция
     def __init__(self, type="", date="", summ="", category="", comment="") -> None:
         self.type = type
         self.date = date
@@ -18,7 +18,8 @@ class Transaction():
         self.category = category
         self.comment = comment
         pass
-
+    
+    # Вывод всех параметров транзакции
     def out(self, counter=0):
         if counter == 0:
             print(f"Транзакция с типом {self.type}, с дата = {self.date}, сумма = {self.summ}, категория — {self.category}, комментарий: {self.comment}")
@@ -26,7 +27,7 @@ class Transaction():
             print(f"{counter}. Транзакция с типом {self.type}, с дата = {self.date}, сумма = {self.summ}, категория — {self.category}, комментарий: {self.comment}")
 
 class Controller():
-    #Контроллер консоли пользователя
+    # Контроллер консоли пользователя
     def __init__(self) -> None:
         self.transactions = []
         pass
@@ -34,6 +35,7 @@ class Controller():
         print(f"Привет!\nЭто приложение для фиксирования трат.")
         input()
 
+    # Добавление транзакции в "БД"
     def add(self):
         print("Введи тип транзакции: ")
         type_of_transactions = input()
@@ -51,6 +53,8 @@ class Controller():
         print("Введи комментарий: ")
         comment = input()
         self.transactions.append(Transaction(type_of_transactions,date,summ,category,comment))
+    
+    # Получение транзакций из "БД". Если передать параметр Flag=false — мы получим транзакии за сегодня
     def get(self,flag=True):
         if len(self.transactions) == 0: 
             print("Ты ещё не записал транзакции...")
@@ -66,6 +70,7 @@ class Controller():
                     transaction.out()
             input()
     
+    # Удаление одной странзакции из "БД"
     def del_one(self):
         if len(self.transactions) == 0:
             print("Ты ещё не записал транзакции...")
@@ -84,6 +89,7 @@ class Controller():
         del_trans = self.transactions.pop(int(result)-1)
         print(f"Транзакция\n{del_trans.out()} удалена!")
 
+    # Управляющая функция
     def listen(self):
         self.intro()
         while True:
